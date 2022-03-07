@@ -35,30 +35,6 @@ def valid_moves(location)
   valid_move?(location[0] - 2, location[1] - 1)
 end
 
-# # builds graph from current location
-# def build_graph(location)
-#   root = Node.new(location)
-
-#   # X-Axis
-#   [-2, 2].each do |x|
-#     x_loc = location[0] + x
-#     [-1, 1].each do |y|
-#       y_loc = location[1] + y
-#       root.add_link(Node.new([x_loc, y_loc])) if valid_move?([x_loc, y_loc])
-#     end
-#   end
-
-#   # Y-Axis
-#   [-2, 2].each do |y|
-#     y_loc = location[0] + y
-#     [-1, 1].each do |x|
-#       x_loc = location[1] + x
-#       root.add_link(Node.new([x_loc, y_loc])) if valid_move?([x_loc, y_loc])
-#     end
-#   end
-#   root
-# end
-
 # builds graph from current location
 def build_graph(root, board)
   # X-Axis
@@ -106,18 +82,7 @@ end
 
 board = create_board
 
-# array = array.new(8) { array.new(8) { 0 } }
-# puts 'Test at [3, 3]:'
-# node = build_graph([3, 3])
-# node.print_links
-
-# puts 'Test at [0, 0]:'
-# node2 = build_graph([0, 0])
-# node2.print_links
-
 puts board[0][0].links[0].data
-
-# build_graph(board[0][0], board)
 
 puts 'board[0][0] links:'
 board[0][0].print_links

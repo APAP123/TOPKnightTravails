@@ -48,9 +48,9 @@ def build_graph(root, board)
 
   # Y-Axis
   [-2, 2].each do |y|
-    y_loc = root.data[0] + y
+    y_loc = root.data[1] + y
     [-1, 1].each do |x|
-      x_loc = root.data[1] + x
+      x_loc = root.data[0] + x
       root.add_link(board[x_loc][y_loc]) if valid_move?([x_loc, y_loc])
     end
   end
@@ -75,14 +75,40 @@ def create_board
   all_nodes
 end
 
+# Exactly what it says
+def print_path(path)
+  puts "You made it in #{path.length - 1} moves! Here's your path:"
+  path.each do |node|
+    puts "[#{node.data[0]}, #{node.data[1]}]"
+  end
+end
+
 # Finds and prints shortest route from start to goal
-def find_route(start, goal)
-  # todo
+def find_route(start, goal, moves = 0)
+  # return moves if start.data == goal
+
+  parent_nodes = []
+  queue = [[start, parent_nodes]]
+  node = queue[0]
+  index = 0
+  while index < queue.length
+    puts "current while parent array length: #{node[1].length}"
+    puts "===========current node: [#{node[0].data[0]}, #{node[0].data[1]}]"
+    node[0].links.each do |link|
+      puts "current link: [#{link.data[0]}, #{link.data[1]}]"
+      return print_path(node[1] + [node[0]] + [link]) if link.data == goal
+
+      queue.push([link, node[1] + [node[0]]])
+    end
+    index += 1
+    node = queue[index]
+  end
 end
 
 board = create_board
 
-puts board[0][0].links[0].data
-
 puts 'board[0][0] links:'
 board[0][0].print_links
+
+puts 'finding route between [3][3] and [0][0]'
+find_route(board[3][3], [4, 3])
